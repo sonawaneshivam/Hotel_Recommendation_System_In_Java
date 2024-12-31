@@ -1,0 +1,45 @@
+1)state
+create table state(stateId int(5) primary key auto_increment,stateName varchar(45) not null);
+2)user
+ create table user(loginId int(5) primary key auto_increment,Name varchar(45) not null,Email varchar(45) not null unique,contactNumber varchar(45) not null unique,userName varchar(45) not null unique,password varchar(45)  not null unique, status Enum('open','block');
+3dist
+  create table dist(distId int(5) primary key auto_increment,distName varchar(50) not null unique);
+4)state district
+ create table State_dist_join(stateId int(5),foreign key(stateId) references state(stateId) on delete cascade on update cascade,distId int(5),foreign key(distId) references dist(distId) on delete cascade on update cascade);
+5)procedure:- 
+  create procedure savedist(distName varchar(45),stateId int(5))
+    -> begin
+    -> insert into dist values(0,distName);
+    -> insert into state_dist_join values(stateId,(select max(distId) from dist));
+    -> end
+    -> /
+
+6)aminities
+create table aminities(am_id int (5) primary key auto_increment,am_name varchar(45) not null unique,am_price double not null);
+
+7)
+create table accommodation(a_id int(5) primary key auto_increment,a_type varchar(45) not null unique);
+
+
+8)cities
+create table cities (c_id int(5) primary key auto_increment,c_name varchar(45) not null unique);
+
+9)s_d_c_join
+create table s_d_c_join(s_id int (5),foreign key(s_id) references State(stateId) on delete cascade on update cascade,d_id int(5),foreign key(d_id) references dist(distId) on delete cascade on update cascade,c_id int (5) ,foreign key(c_id) references cities(c_id) on delete cascade on update cascade,l_id int(5) primary key auto_increment);
+
+
+procedure
+ create procedure savecity(c_name varchar(45),s_id int(5),d_id int(5))
+    -> begin
+    -> insert into cities values(0,c_name);
+    -> insert into s_d_c_join values(s_id,d_id,(select max(c_id) from cities));
+    -> end
+    -> /
+
+
+10)Hotel table;
+create table hotel(h_id int(5) primary key auto_increment,h_name varchar(45) not null,h_contact varchar(45) not null unique,l_id int(5),foreign key(l_id) references s_d_c_join(l_id) on  delete cascade on update cascade ,h_address varchar(200) not null,type int(5),foreign key(type) references  accommodation(a_id) on delete cascade  on update cascade,price int(10) not null);
+
+
+11)amenity hotel join
+create table hotel_aminity_join(am_id int (5),foreign key(am_id) references aminities(am_id) on delete cascade on update cascade,h_id int (5),foreign key(h_id) references hotel(h_id) on delete cascade on update cascade);
