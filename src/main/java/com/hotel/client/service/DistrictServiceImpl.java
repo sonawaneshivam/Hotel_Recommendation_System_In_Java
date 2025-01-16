@@ -44,9 +44,9 @@ public class DistrictServiceImpl implements IDistrictService {
 		return districtRepo.CheckDistricAndStatePresent(de);
 	}
 	@Override
-	public boolean insertDataInJoin(DistrictEntity de) {
+	public boolean insertDataInJoin(DistrictEntity de,int old) {
 		// TODO Auto-generated method stub
-		return districtRepo.insertDataInJoin(de);
+		return districtRepo.insertDataInJoin(de,old);
 	}
 	@Override
 	public boolean newDistrict(DistrictEntity de) {

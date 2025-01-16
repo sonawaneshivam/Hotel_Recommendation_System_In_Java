@@ -63,10 +63,18 @@ public class StateOperation {
 				al.forEach((t) -> System.out.println(t.getS_id() + "\t\t" + t.getS_name()));
 				break;
 			case 3:
-				System.out.println("Enter the  State that we want to insert ");
-				stateName = sc.nextLine();
+				al = new ArrayList<StateEntity>();
+				al = iStateServices.getAllStates();
+				System.out.println("*****************STATES********************");
+				System.out.println("State_id\t State_Name");
+				al.forEach((t) -> System.out.println(t.getS_id() + "\t\t" + t.getS_name()));
+				System.out.println("");
+				
 				System.out.println("Enter the Id where we want to change");
 				int s_id = sc.nextInt();
+				sc.nextLine();
+				System.out.println("Enter the  State for change ");
+				stateName = sc.nextLine();
 				se.setS_id(s_id);
 				se.setS_name(stateName);
 				check = iStateServices.updateState(se);
@@ -80,6 +88,12 @@ public class StateOperation {
 				}
 				break;
 			case 4:
+				al = new ArrayList<StateEntity>();
+				al = iStateServices.getAllStates();
+				System.out.println("*****************STATES********************");
+				System.out.println("State_id\t State_Name");
+				al.forEach((t) -> System.out.println(t.getS_id() + "\t\t" + t.getS_name()));
+				System.out.println("");
 				System.out.println("Enter the state Id for delete");
 				s_id = sc.nextInt();
 				check = iStateServices.deleteState(s_id);

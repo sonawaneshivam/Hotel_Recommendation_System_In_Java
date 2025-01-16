@@ -12,7 +12,7 @@ public interface IDistrictRepo {
 	public List<DistrictEntity> showAllDistrcitWhitState(int stateID);
 	public boolean checkDistrictPrestent(DistrictEntity de);
 	public boolean CheckDistricAndStatePresent(DistrictEntity de);
-	public boolean insertDataInJoin(DistrictEntity de);
+	public boolean insertDataInJoin(DistrictEntity de,int old);
 	public boolean newDistrict(DistrictEntity de);
 	
 	public List<DistrictEntity> searchDist(DistrictEntity de);

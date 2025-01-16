@@ -241,7 +241,7 @@ public class HotelRepoImpl extends Database_Connection implements IHotelRepo {
 				he.setH_type(rs.getString(4));
 				String amenities = rs.getString("aminities");
 				if (amenities == null) {
-					he.setAminity(amenities);
+					he.setAminity("No aminities");
 				} else {
 					he.setAminity(amenities);
 				}

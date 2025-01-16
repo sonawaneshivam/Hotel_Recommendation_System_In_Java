@@ -135,11 +135,12 @@ public class DistrictRepoImpl extends Database_Connection implements IDistrictRe
 	}
 
 	@Override
-	public boolean insertDataInJoin(DistrictEntity de) {
+	public boolean insertDataInJoin(DistrictEntity de,int old) {
 		try {
-			pst=con.prepareStatement(" update state_dist_join set distId=? where stateId=?");
+			pst=con.prepareStatement(" update state_dist_join set distId=? where stateId=? and distId=?");
 			pst.setInt(1, de.getDistId());
 			pst.setInt(2, de.getS_id());
+			pst.setInt(3, old);
 			int value=pst.executeUpdate();
 			return value>0?true:false;
 		} catch (Exception e) {
@@ -183,7 +184,7 @@ public class DistrictRepoImpl extends Database_Connection implements IDistrictRe
 	@Override
 	public int checkDistCount(DistrictEntity de) {
 		try {
-			pst=con.prepareStatement("select count(distinct d.distId) from dist as d inner join state_dist_join as sd on d.distId=sd.distId where stateId=?;");
+			pst=con.prepareStatement("select count(distinct d.distId) from dist as d inner join state_dist_join as sd on d.distId=sd.distId where stateId=?");
 			pst.setInt(1, de.getS_id());
 			rs=pst.executeQuery();
 			int no=0;
